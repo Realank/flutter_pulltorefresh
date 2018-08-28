@@ -1,15 +1,8 @@
-import 'package:flutter/widgets.dart';
-
 /*
     Author: Jpeng
     Email: peng8350@gmail.com
     createTime:2018-05-17 10:39
  */
-
-
-typedef void OnRefresh(bool up);
-typedef void OnOffsetChange(bool up, double offset);
-typedef Widget IndicatorBuilder(BuildContext context, int mode);
 
 const int default_completeDuration = 800;
 
@@ -29,6 +22,6 @@ const bool default_BottomWhenBuild = true;
 
 const bool default_enableOverScroll = true;
 
-const int spaceAnimateMill=300;
+const int spaceAnimateMill = 300;
 
 const double minSpace = 0.000001;

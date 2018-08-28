@@ -5,6 +5,11 @@
  */
 
 import 'default_constants.dart';
+import 'package:flutter/widgets.dart';
+
+typedef void OnRefresh(bool up);
+typedef void OnOffsetChange(bool up, double offset);
+typedef Widget IndicatorBuilder(BuildContext context, int mode);
 
 /*
  * This will use to configure the Wrapper action
@@ -37,8 +42,8 @@ class LoadConfig extends Config {
   final bool enableOverScroll;
   const LoadConfig({
     this.autoLoad: default_AutoLoad,
-    this.bottomWhenBuild:default_BottomWhenBuild,
-    this.enableOverScroll :default_enableOverScroll,
+    this.bottomWhenBuild: default_BottomWhenBuild,
+    this.enableOverScroll: default_enableOverScroll,
     double triggerDistance: default_load_triggerDistance,
   }) : super(triggerDistance: triggerDistance);
 }
