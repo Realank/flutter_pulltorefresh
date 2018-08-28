@@ -53,7 +53,11 @@ class _PullListViewState extends State<PullListView> {
   void initState() {
     // TODO: implement initState
     _getDatas();
-    _refreshController = new RefreshController();
+    _refreshController = RefreshController();
+
+    _refreshController.scrollController.addListener(() {
+      print('scroll ${_refreshController.scrollController.offset}');
+    });
     super.initState();
   }
 
@@ -69,7 +73,7 @@ class _PullListViewState extends State<PullListView> {
 
   void _onRefresh(up) {
     if (up)
-      new Future.delayed(const Duration(milliseconds: 2009)).then((val) {
+      new Future.delayed(const Duration(milliseconds: 5009)).then((val) {
         data.add(new Card(
           margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
           child: new Center(
@@ -77,20 +81,19 @@ class _PullListViewState extends State<PullListView> {
           ),
         ));
 
-//        _refreshController.scrollTo(_refreshController.scrollController.offset + 100.0);
         _refreshController.sendBack(true, RefreshStatus.completed);
         setState(() {});
       });
     else {
       new Future.delayed(const Duration(milliseconds: 2009)).then((val) {
-        data.add(new Card(
-          margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
-          child: new Center(
-            child: new Text('Data '),
-          ),
-        ));
+//        data.add(new Card(
+//          margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+//          child: new Center(
+//            child: new Text('Data '),
+//          ),
+//        ));
         setState(() {});
-        _refreshController.sendBack(false, RefreshStatus.idle);
+        _refreshController.sendBack(false, RefreshStatus.noMore);
       });
     }
   }
@@ -100,6 +103,8 @@ class _PullListViewState extends State<PullListView> {
     return new Container(
         child: new SmartRefresher(
             headerBuilder: _headerCreate,
+            headerConfig: RefreshConfig(completeDuration: 800),
+            footerConfig: LoadConfig(),
             enablePullDown: true,
             enablePullUp: true,
             controller: _refreshController,
